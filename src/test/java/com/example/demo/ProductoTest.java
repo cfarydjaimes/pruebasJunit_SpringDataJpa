@@ -29,6 +29,7 @@ public class ProductoTest {
     @Autowired
     private ProductoRepositorio repositorio;
 
+    //Metodo para guardar un producto en la base de datos 
     @Test
     @Rollback(false) //Rollback retrocede la consulta en la base de datos 
     @Order(1)
@@ -39,6 +40,7 @@ public class ProductoTest {
         assertNotNull(productoGuardado);
     }
 
+    //Metodo para buscar un producto por nombre en la base de datos 
     @Test
     @Order(2)
     public void testBuscarProductoPorNombre(){
@@ -59,6 +61,7 @@ public class ProductoTest {
         assertNull(producto);
     }
 
+    //Metodo para actualizar un producto indicando su nombre y valor nuevo 
     @Test
     @Rollback(false)
     @Order(4)
@@ -72,6 +75,7 @@ public class ProductoTest {
         assertThat(productoActualizado.getNombre()).isEqualTo(nombreProducto); // Verificar si se ha actualizado
     }
 
+    //Metodo para listar los productos existentes en la base de datos (Se observa por la terminal)
     @Test
     @Order(5)
     public void testListarProductos(){
@@ -80,11 +84,12 @@ public class ProductoTest {
         assertThat(productos).size().isGreaterThan(0); //Confirmar que el tamaño lista de productos es mayor a 0.
     }
 
+    //Metodo para eliminar un producto existente en la base de datos indicando su ID
     @Test
     @Rollback(false)
     @Order(6)
     public void testEliminarProducto(){
-        Integer id = 5;
+        Integer id = 5; //Indicar el ID del producto a eliminar
         boolean existente = repositorio.findById(id).isPresent(); //verificar si existe el producto con el id proporcionado
         repositorio.deleteById(id);
         boolean noExistente = repositorio.findById(id).isPresent(); //verificar si elimino el producto con el id proporcionado True
